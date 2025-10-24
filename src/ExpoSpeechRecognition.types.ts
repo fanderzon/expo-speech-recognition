@@ -1,19 +1,19 @@
-import type { StyleProp, ViewStyle } from 'react-native';
-
-export type OnLoadEventPayload = {
-  url: string;
+export type StartOptions = {
+  language?: string;
+  interimResults?: boolean;
+  continuous?: boolean;
+  maxSeconds?: number;
 };
 
-export type ExpoSpeechRecognitionModuleEvents = {
-  onChange: (params: ChangeEventPayload) => void;
+export type ResultPayload = {
+  text: string;
+  isFinal: boolean;
 };
 
-export type ChangeEventPayload = {
-  value: string;
+export type ErrorPayload = {
+  error: string;
 };
 
-export type ExpoSpeechRecognitionViewProps = {
-  url: string;
-  onLoad: (event: { nativeEvent: OnLoadEventPayload }) => void;
-  style?: StyleProp<ViewStyle>;
+export type VolumePayload = {
+  rmsDb: number;
 };
