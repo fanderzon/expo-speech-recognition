@@ -1,0 +1,9 @@
+{
+  "platforms": ["apple", "android", "web"],
+  "apple": {
+    "modules": ["ExpoSpeechRecognitionModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.speechrecognition.ExpoSpeechRecognitionModule"]
+  }
+}
