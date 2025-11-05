@@ -1,6 +1,7 @@
 import ExpoModulesCore
 import Speech
 import AVFoundation
+import Accelerate
 
 public class ExpoSpeechRecognitionModule: Module {
   // Each module class must implement the definition function. The definition consists of components
@@ -129,10 +130,11 @@ public class ExpoSpeechRecognitionModule: Module {
 
   private func computeRMS(buffer: AVAudioPCMBuffer) -> Double {
     guard let channelData = buffer.floatChannelData?[0] else { return 0 }
-    let frameLength = Int(buffer.frameLength)
+    let frameLength = vDSP_Length(buffer.frameLength)
     var sum: Float = 0
-    vDSP_measqv(channelData, 1, &sum, vDSP_Length(frameLength))
-    let rms = sqrt(sum)
+    vDSP_svesq(channelData, 1, &sum, frameLength)
+    let meanSquare = sum / Float(buffer.frameLength)
+    let rms = sqrt(meanSquare)
     let db = 20 * log10(Double(rms) + 1e-7)
     return db
   }
